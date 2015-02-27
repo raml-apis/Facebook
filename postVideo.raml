@@ -1,0 +1,29 @@
+#%RAML 0.8
+title: "Facebook APIs"
+version: 1.1
+baseUri: "http://www.graph-video.facebook.com"
+schemas:
+  - id: !include schemas/id-schema.json
+  - error: !include schemas/error-schema.json
+resourceTypes:
+  - idReturned: !include resourceTypes/idReturned.raml
+  - base: !include resourceTypes/base.raml
+"/{event-id}": 
+  description: "An event."
+  /videos: 
+    type: idReturned
+    post: 
+      description: "You can publish a video to an event by issuing an HTTP POST request to https://graph-video.facebook.com/EVENT_ID/videos with a user access_token"
+      body: 
+        multipart/form-data: 
+          formParameters: 
+            source: 
+              description: "Video content"
+              required: true
+            title: 
+              description: "Video title"
+            description: 
+              description: "Video description"
+documentation: 
+  - title: Headline
+    content: !include docs/postVideo/headline.md

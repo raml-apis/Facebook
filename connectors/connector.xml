@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:oauth2="http://www.mulesoft.org/schema/mule/oauth2" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/oauth2 http://www.mulesoft.org/schema/mule/oauth2/current/mule-oauth2.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <oauth2:token-manager-config name="Token_Manager_Config" doc:name="Token Manager Config"/>
+    <http:request-config name="HTTP_Request_Facebook" host="graph.facebook.com" port="443" doc:name="HTTP Request Configuration" basePath="/v2.0" protocol="HTTPS">
+       <oauth2:authorization-code-grant-type clientId="{clientId}" clientSecret="{clientSecret}" redirectionUrl="http://localhost:9000/codeFacebook" tokenManager-ref="Token_Manager_Config">
+           <oauth2:authorization-request authorizationUrl="https://graph.facebook.com/oauth/authorize" localAuthorizationUrl="http://localhost:9000/authorizeFacebook"/>
+           <oauth2:token-request tokenUrl="https://graph.facebook.com/oauth/access_token">
+               <oauth2:token-response accessToken="#[org.apache.commons.io.IOUtils.toString(payload).split(&quot;=|&amp;&quot;)[1]]"/>
+           </oauth2:token-request>
+       </oauth2:authorization-code-grant-type>
+       <http:raml-api-configuration location="100apis/facebook/api.raml"/>
+    </http:request-config>
+    <flow name="raml-test-FacebookFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/facebook" doc:name="HTTP_Listener_Facebook"/>
+        <http:request config-ref="HTTP_Request_Facebook" path="/me" method="GET" doc:name="HTTP_Request_Facebook">
+            <http:request-builder>
+            </http:request-builder>
+            <http:success-status-code-validator values="200..700"/>
+        </http:request>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
