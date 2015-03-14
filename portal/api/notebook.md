@@ -3,8 +3,8 @@ The API notebooks are all executable! Hit "enter" in any code cell to execute it
 #Considerations
 
 - In order to run these notebooks you will need a Facebook account. Most notebooks ask you to authorize the client application to access to your account at some point of the excecution.
-- You will also need to register a facebook application at the facebook developers site (see the "App" menue). Redirect URI of the application must be set to https://api-notebook.anypoint.mulesoft.com/authenticate/oauth.html. All the notebooks ask you for APP_ID and APP_SECRET in the very beginning.
-- In order to run the "Page, conversations, milestone, offer" you must create a special page. After the page is created, you must involve it into conversation i.e. send a private message to it. Note that before launching this notebook you must obtain a PAGE_ACCESS_TOKEN as a result of launching the [auxilliary notebook](https://anypoint.mulesoft.com/apiplatform/popular/#/portals/apis/7965/versions/8129/pages/7046).
+- You will also need to register a facebook application at the facebook developers site (see the "App" menu). Redirect URI of the application must be set to https://api-notebook.anypoint.mulesoft.com/authenticate/oauth.html. All the notebooks ask you for APP_ID and APP_SECRET in the very beginning.
+- In order to run the "Graph. Page, conversations, milestone, offer" you must create a special page. After the page is created, you must involve it into conversation i.e. send a private message to it. Note that before launching this notebook you must obtain a PAGE_ACCESS_TOKEN as a result of launching the [Auxilliary notebook](https://anypoint.mulesoft.com/apiplatform/popular/#/portals/apis/7965/versions/8129/pages/7046).
 - Some methods require you to be the application's admin.
 - The application must be set the "Games" category in order to execute methods related with achievments and scores. See the "App Details" tab.
 - Those notebooks which deal with achievments ask for an URL which points to a valid achievment definition. The example of such definition is:​
@@ -19,9 +19,9 @@ The API notebooks are all executable! Hit "enter" in any code cell to execute it
         <meta property="og:image" content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" />
     </head>
 <body>
-    It's my sample achievement for the 'facebook' API Notebook v2.<br/> See the page code.
+    It's my sample achievement for the 'Facebook' API Notebook v2.<br/> See the page code.
 </body>
 
 - Your facebook account must have at least one video, event and friendlist in order to execute methods related with these objects.
 - Some notebooks require your account to have at least one page.
-- The "App part 2, group part 1" notebook requires you to enter a valid facebook user_id in the very beginning. It will be added to lists of members and admins of created groups. You may use your own user_id.
+- The "Graph. App part 2" and "Graph. Group part 1" notebooks require you to enter a valid facebook user_id in the very beginning. It will be added to lists of members and admins of created groups. You may use your own user_id.
