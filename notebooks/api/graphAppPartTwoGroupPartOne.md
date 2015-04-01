@@ -46,7 +46,7 @@ ACHIEVEMENT_URL = prompt("Please, enter URL which points to a valid achievement 
 
 // Read about the Facebook RAML API at https://anypoint.mulesoft.com/apiplatform/popular/admin/#/dashboard/apis/7965/versions/8129/contracts
 
-API.createClient('client', '/apiplatform/repository/public/organizations/30/apis/7965/versions/8129/definition');
+API.createClient('client', '#REF_TAG_DEFENITION');
 
 ```
 
