@@ -1,29 +1,101 @@
 #%RAML 0.8
-title: "Facebook APIs"
-version: 1.1
-baseUri: "http://www.graph-video.facebook.com"
+title: Facebook Video Upload API
+version: v2.3
+baseUri: http://www.graph-video.facebook.com
 schemas:
   - id: !include schemas/id-schema.json
   - error: !include schemas/error-schema.json
+  - publishVideoResponse: !include /schemas/publishVideoResponse-schema.json
 resourceTypes:
   - idReturned: !include resourceTypes/idReturned.raml
   - base: !include resourceTypes/base.raml
-/{event_id}: 
-  description: "An event."
+  - publish: !include resourceTypes/publish.raml
+/{user_id}: 
+  description: An user.
   /videos: 
-    type: idReturned
+    type: publish
     post: 
-      description: "You can publish a video to an event by issuing an HTTP POST request to https://graph-video.facebook.com/EVENT_ID/videos with a user access_token"
       body: 
         multipart/form-data: 
           formParameters: 
-            source: 
-              description: "Video content"
-              required: true
-            title: 
-              description: "Video title"
-            description: 
-              description: "Video description"
+            unpublished_content_type: 
+              description: Type of unpublished content, such as scheduled, draft or ads_post.
+              enum: 
+                - DRAFT
+                - SCHEDULED
+                - ADS_POST
+            privacy: 
+              description: Determines the privacy settings of the video. If not supplied, this defaults to the privacy level granted to the app in the Login Dialog. This field cannot be used to set a more open privacy setting than the one granted.
+            no_story: 
+              description: If set to true, this will suppress feed and timeline story.
+              type: boolean
+/{event_id}: 
+  description: An event.
+  /videos: 
+    type: publish
+/{page_id}: 
+  description: An page.
+  /videos: 
+    type: publish
+    post: 
+      body: 
+        multipart/form-data: 
+          formParameters: 
+            unpublished_content_type: 
+              description: Type of unpublished content, such as scheduled, draft or ads_post.
+              enum: 
+                - DRAFT
+                - SCHEDULED
+                - ADS_POST
+            privacy: 
+              description: Determines the privacy settings of the video. If not supplied, this defaults to the privacy level granted to the app in the Login Dialog. This field cannot be used to set a more open privacy setting than the one granted.
+            no_story: 
+              description: If set to true, this will suppress feed and timeline story.
+              type: boolean
+            backdated_time: 
+              description: The time when the video post was created.A backdated post needs to be published.
+              type: date
+            backdated_time_granularity: 
+              description: Accuracy of the backdated time.A backdated post needs to be published.
+              enum: 
+                - min
+                - month
+                - none
+                - year
+                - hour
+                - day
+            backdated_post[backdated_time]: 
+              description: The time when the video post was created.
+            backdated_post[backdated_time_granularity]: 
+              description: Accuracy of the backdated time.
+              enum: 
+                - min
+                - month
+                - none
+                - year
+                - hour
+                - day
+              default: none
+            backdated_post[hide_from_newsfeed]: 
+              description: Whether to hide the video from newsfeed display.
+            call_to_action: 
+              description: Call to action for someone viewing a video, such as Reply. You can add a call to action button to an uploaded video. This should be the action you want people to take when they reach the end of the video.
+            feed_targeting: 
+              description: Object that controls news feed targeting for this content. Anyone in these demographics will be more likely to see this content, those not will be less likely, but may still see it anyway. Any of the targeting fields shown here can be used, none are required.
+            published: 
+              description: |
+                Default value: 1
+                Whether a post about this video is published. Non-published videos cannot be backdated.
+              type: boolean
+              default: true
+            scheduled_publish_time: 
+              description: Time when the page post about this video should go live, this should be between 10 mins and 6 months from the time of publishing the video.
+            targeting: 
+              description: Object that limits the audience for this content. Anyone not in these demographics will not be able to view this content. This will not override any Page-level demographic restrictions that may be in place.
+/{group_id}: 
+  description: An group.
+  /videos: 
+    type: publish
 documentation: 
   - title: Headline
     content: !include docs/postVideo/headline.md

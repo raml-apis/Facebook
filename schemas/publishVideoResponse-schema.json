@@ -1,0 +1,35 @@
+{
+  "required" : true ,
+  "$schema" : "http://json-schema.org/draft-03/schema" ,
+  "type" : "object" ,
+  "properties" : {
+    "id" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "upload_session_id" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "video_id" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "start_offset" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "end_offset" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "success" : {
+      "type" : "string" ,
+      "required" : false
+    } ,
+    "skip_upload" : {
+      "type" : "string" ,
+      "required" : false
+    }
+  }
+}

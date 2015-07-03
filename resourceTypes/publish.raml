@@ -1,0 +1,41 @@
+post: 
+  description: You can publish a video by issuing an HTTP POST request with a user access_token
+  body: 
+    multipart/form-data: 
+      formParameters: 
+        source: 
+          description: Video content
+          required: true
+        title: 
+          description: Video title
+        description: 
+          description: Video description
+        id: 
+          description: The target ID where the video is posted to.
+        file_url: 
+          description: Accessible URL of a video file. Cannot be used with upload_phase.
+        thumb: 
+          description: The video thumbnail raw data to be uploaded and associated with a video.
+          type: file
+        upload_phase: 
+          description: Type of chunked upload request.
+          enum: 
+            - finish
+            - transfer
+            - start
+        file_size: 
+          description: The size of the entire video file in bytes.
+          type: integer
+        start_offset: 
+          description: Start byte position of the file chunk.
+          type: integer
+        video_file_chunk: 
+          description: The video file chunk, encoded as form data. This field is required during transfer upload phase.
+        upload_session_id: 
+          description: ID of the chunked upload session.
+  responses: 
+    201: 
+      body: 
+        application/json: 
+          schema: publishVideoResponse
+          example: !include examples/publishVideoResponse-example.json
