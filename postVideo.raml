@@ -6,10 +6,13 @@ schemas:
   - id: !include schemas/id-schema.json
   - error: !include schemas/error-schema.json
   - publishVideoResponse: !include /schemas/publishVideoResponse-schema.json
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.raml
 resourceTypes:
   - idReturned: !include resourceTypes/idReturned.raml
   - base: !include resourceTypes/base.raml
   - publish: !include resourceTypes/publish.raml
+securedBy: [ oauth_2_0 ]
 /{user_id}: 
   description: An user.
   /videos: 
