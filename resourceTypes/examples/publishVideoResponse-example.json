@@ -1,0 +1,9 @@
+{
+  "id" : "numeric string" ,
+  "upload_session_id" : "numeric string" ,
+  "video_id" : "numeric string" ,
+  "start_offset" : "numeric string" ,
+  "end_offset" : "numeric string" ,
+  "success" : "bool" ,
+  "skip_upload" : "bool"
+}
