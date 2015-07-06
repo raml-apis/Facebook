@@ -13,9 +13,8 @@ resourceTypes:
   - base: !include resourceTypes/base.raml
   - publish: !include resourceTypes/publish.raml
 securedBy: [ oauth_2_0 ]
-/{user_id}: 
-  description: An user.
-  /videos: 
+/{user_id}/videos: 
+    description: Upload video to user facebook account.
     type: publish
     post: 
       body: 
@@ -32,13 +31,11 @@ securedBy: [ oauth_2_0 ]
             no_story: 
               description: If set to true, this will suppress feed and timeline story.
               type: boolean
-/{event_id}: 
-  description: An event.
-  /videos: 
+/{event_id}/videos: 
+    description: Upload video to the event.
     type: publish
-/{page_id}: 
-  description: An page.
-  /videos: 
+/{page_id}/videos:
+    description: Upload video to the page. 
     type: publish
     post: 
       body: 
@@ -95,9 +92,8 @@ securedBy: [ oauth_2_0 ]
               description: Time when the page post about this video should go live, this should be between 10 mins and 6 months from the time of publishing the video.
             targeting: 
               description: Object that limits the audience for this content. Anyone not in these demographics will not be able to view this content. This will not override any Page-level demographic restrictions that may be in place.
-/{group_id}: 
-  description: An group.
-  /videos: 
+/{group_id}/videos: 
+    description: Upload video to the group.
     type: publish
 documentation: 
   - title: Headline
