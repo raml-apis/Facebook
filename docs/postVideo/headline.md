@@ -1,1 +1,1 @@
-Facebook is a social utility that connects people with friends and others who work, study and live around them. This portal describe Facebook Video Upload with Graph API.
+Facebook is a social utility that connects people with friends and others who work, study and live around them. This portal describe Facebook Video Upload API.
